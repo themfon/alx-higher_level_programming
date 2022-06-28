@@ -86,11 +86,11 @@ if __name__ == '__main__':
     try:
         size = int(sys.argv[1])
     except nMustBeANumber:
-        print("N must be a number")
+        print("N must be a number\n")
         sys.exit(1)
 
     if size < 4:
-        print("N must be at least 4")
+        print("N must be at least 4\n")
         sys.exit(1)
 
     solveNQueen(size)
