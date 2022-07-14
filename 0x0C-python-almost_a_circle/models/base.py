@@ -167,4 +167,3 @@ class Base:
             turt.hideturtle()
 
         turt.exitonclick()
-        
