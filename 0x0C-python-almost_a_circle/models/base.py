@@ -1,20 +1,20 @@
 #!/usr/bin/python3
-"""contains the module for class base"""
-
-
-import os
+"""Base Module"""
 import json
 import csv
 import turtle
 
 
 class Base:
-    """represents the base class"""
+    """Defines the representation of a Base Object"""
+
     __nb_objects = 0
 
     def __init__(self, id=None):
-        """initializes a new object with the given id"""
-
+        """Initializes a Base Object
+        if id is none, assigns class id incremented by 1
+        :param id: identifier of an instantiated base object
+        """
         if id is not None:
             self.id = id
         else:
@@ -23,16 +23,21 @@ class Base:
 
     @staticmethod
     def to_json_string(list_dictionaries):
-        """returns JSON string representation
-        of list_dictionaries"""
+        """Return the JSON serialization of a list of dicts.
+        :param list_dictionaries (list): A list of dictionaries.
+        :return:
+            If list_dictionaries is None or empty - an empty list
+            Otherwise - String representation of list of dicts.
+        """
         if list_dictionaries is None or list_dictionaries == []:
             return "[]"
         return json.dumps(list_dictionaries)
 
     @classmethod
     def save_to_file(cls, list_objs):
-        """writes JSON string representation
-        of list_objs to a file"""
+        """Write the JSON serialization of a list of objects to a file.
+        :param list_objs (list): A list of inherited Base instances.
+        """
         filename = cls.__name__ + ".json"
         with open(filename, "w", encoding="utf-8") as json_file:
             if list_objs is None or list_objs == []:
@@ -43,16 +48,21 @@ class Base:
 
     @staticmethod
     def from_json_string(json_string):
-        """returns list of JSON string
-        representation json_string"""
+        """Return the deserialization of a JSON string.
+        :param json_string (str): A JSON str representation of a list of dicts.
+        :return:
+            If json_string is None or empty - an empty list.
+            Otherwise - the Python list represented by json_string.
+        """
         if json_string is None or len(json_string) == 0:
             return []
         return json.loads(json_string)
 
     @classmethod
     def create(cls, **dictionary):
-        """returns a list of classes instantiated
-        from a dictionary of attributes"""
+        """Return a class instantied from a dictionary of attributes.
+        :param dictionary(dict): Key/value pairs of attributes to initialize.
+        """
         if dictionary and dictionary != {}:
             if cls.__name__ == "Rectangle":
                 instance = cls(10, 5)
@@ -63,8 +73,12 @@ class Base:
 
     @classmethod
     def load_from_file(cls):
-        """returns a class instantiated
-        from a file of JSON strings"""
+        """Return a list of classes instantiated from a file of JSON strings.
+        Reads from `<cls.__name__>.json`.
+        return:
+            If the file does not exist - an empty list.
+            Otherwise - a lsit of instantiated classes.
+        """
         filename = cls.__name__ + ".json"
         try:
             with open(filename, "r") as json_file:
@@ -75,8 +89,9 @@ class Base:
 
     @classmethod
     def save_to_file_csv(cls, list_objs):
-        """write the CSV serialization of
-         a list of objects to a file"""
+        """Write the CSV serialization of a list of objects to a file.
+        :param list_objs (list): A list of inherited Base instances.
+        """
         filename = cls.__name__ + ".csv"
         if filename == "Rectangle.csv":
             header = ["id", "width", "height", "x", "y"]
@@ -93,8 +108,12 @@ class Base:
 
     @classmethod
     def load_from_file_csv(cls):
-        """Returns a list of classes instantiated
-        from a CSV file"""
+        """Return a list of classes instantiated from a CSV file.
+        Reads from `<cls.__name__>.csv`.
+        return:
+            If the file does not exist - an empty list.
+            Otherwise - a list of instantiated classes.
+        """
         filename = cls.__name__ + ".csv"
         try:
             with open(filename, "r") as csv_file:
@@ -111,8 +130,11 @@ class Base:
 
     @staticmethod
     def draw(list_rectangles, list_squares):
-        """Draw Rectangles and squares using
-        the turtle module"""
+        """
+        Draw Rectangles and Squares using the turtle module.
+        :param list_rectangles (list): A list of Rectangle objects to draw.
+        :param list_squares (list): A list of Square objects to draw.
+        """
         turt = turtle.Turtle()
         turt.screen.bgcolor("#b1eb34")
         turt.pensize(3)
